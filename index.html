@@ -15,25 +15,32 @@ h1,h2,h3{font-family:'Outfit',system-ui,sans-serif}
 img{max-width:100%}
 html{scroll-behavior:smooth;scroll-padding-top:80px}
 /* Sticky header: Book button appears once the hero's buttons scroll away */
-.site-header{transition:box-shadow .2s ease}
-.site-header.is-scrolled{box-shadow:0 1px 0 #E3DCD2,0 6px 18px rgba(47,64,56,.06)}
+.site-header{transition:box-shadow .2s ease,transform .3s ease}
+.is-scrolled .site-header{box-shadow:0 1px 0 #E3DCD2,0 6px 18px rgba(47,64,56,.06)}
 .header-book{opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .25s ease,transform .25s ease,visibility .25s}
-.site-header.is-scrolled .header-book{opacity:1;visibility:visible;transform:none}
+.is-scrolled .header-book{opacity:1;visibility:visible;transform:none}
 .menu-btn{display:none}
 .mobile-menu{display:none}
+.book-bar{display:none}
 /* Ticker */
 @keyframes hs-ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .ticker-track{animation:hs-ticker 38s linear infinite}
 .ticker:hover .ticker-track{animation-play-state:paused}
-@media (prefers-reduced-motion: reduce){
-  .ticker-track{animation:none}
-  html{scroll-behavior:auto}
-}
-/* Tablets and phones: menu button instead of links */
+/* Tablets and phones: menu button, header hides on scroll down, Book bar at the bottom */
 @media (max-width: 900px){
   .desk-nav{display:none !important}
   .menu-btn{display:flex !important}
-  .site-header.menu-open .mobile-menu{display:flex !important}
+  .menu-open .mobile-menu{display:flex !important}
+  .header-book{display:none !important}
+  .nav-hidden .site-header{transform:translateY(-100%)}
+  .book-bar{display:block;position:fixed;left:0;right:0;bottom:0;z-index:60;padding:10px 16px calc(10px + env(safe-area-inset-bottom));background:rgba(246,242,236,.96);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-top:1px solid #E3DCD2;transform:translateY(110%);transition:transform .3s ease}
+  .is-scrolled:not(.at-book) .book-bar{transform:none}
+  .page{padding-bottom:84px}
+}
+@media (prefers-reduced-motion: reduce){
+  .ticker-track{animation:none}
+  html{scroll-behavior:auto}
+  .site-header,.book-bar{transition:none !important}
 }
 /* Phones */
 @media (max-width: 640px){
@@ -78,7 +85,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 <body>
 
 
-<div style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2F4038; background: #F6F2EC; font-size: 17px; line-height: 1.65;">
+<div class="page" style="font-family: 'Plus Jakarta Sans', system-ui, sans-serif; color: #2F4038; background: #F6F2EC; font-size: 17px; line-height: 1.65;">
 
   <!-- Notice bar: only shown when there is something to announce (e.g. leave) -->
   
@@ -115,7 +122,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
   <!-- Hero -->
   <section id="top" style="max-width: 1200px; margin: 0 auto; padding: 48px 24px 88px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px;">
     <div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
-      <p style="margin: 0; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #4C6656; font-weight: 600;">Hayley Schuter · Gardens, Cape Town</p>
+      <span style="align-self: flex-start; display: inline-flex; align-items: center; gap: 6px; background: #E4EBE5; color: #3B5446; font-size: 14px; font-weight: 500; padding: 6px 14px 6px 10px; border-radius: 999px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#3B5446" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Gardens, Cape Town</span>
       <h1 style="margin: 0; font-size: 64px; line-height: 1.04; font-weight: 500; letter-spacing: -0.015em;">Hands-on physiotherapy for body and mind.</h1>
       <p style="margin: 0; font-size: 19px; color: #4A5650; max-width: 34em;">Treating sports and running injuries, hand and shoulder problems, and the tension stress leaves behind — so you can feel at home in your body again.</p>
       <div id="hero-cta" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-top: 8px;">
@@ -447,21 +454,36 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
     </div>
   </footer>
 
+  <!-- Phones: Book bar appears after the hero, hides at the booking section -->
+  <div class="book-bar">
+    <a href="#book" style="display: block; text-align: center; background: #2F4038; color: #FFFFFF; text-decoration: none; padding: 15px 20px; border-radius: 999px; font-weight: 600;">Book an appointment</a>
+  </div>
+
 </div>
 
 <script>
 (function(){
-  var header = document.querySelector('.site-header');
+  var page = document.querySelector('.page');
   var cta = document.getElementById('hero-cta');
+  var book = document.getElementById('book');
   var btn = document.querySelector('.menu-btn');
-  if (header && cta && 'IntersectionObserver' in window) {
-    new IntersectionObserver(function(entries){
-      var e = entries[0];
-      header.classList.toggle('is-scrolled', !e.isIntersecting && e.boundingClientRect.top < 0);
-    }, { rootMargin: '-70px 0px 0px 0px' }).observe(cta);
+  var lastY = window.scrollY, ticking = false;
+  function update(){
+    ticking = false;
+    var y = window.scrollY;
+    page.classList.toggle('is-scrolled', cta ? cta.getBoundingClientRect().bottom < 70 : y > 520);
+    var menuOpen = page.classList.contains('menu-open');
+    if (y < 80 || menuOpen) page.classList.remove('nav-hidden');
+    else if (y > lastY + 4) page.classList.add('nav-hidden');
+    else if (y < lastY - 4) page.classList.remove('nav-hidden');
+    lastY = y;
+    if (book) { var r = book.getBoundingClientRect(); page.classList.toggle('at-book', r.top < window.innerHeight && r.bottom > 0); }
   }
+  window.addEventListener('scroll', function(){ if (!ticking) { ticking = true; requestAnimationFrame(update); } }, { passive: true });
+  update();
   function setMenu(open){
-    header.classList.toggle('menu-open', open);
+    page.classList.toggle('menu-open', open);
+    if (open) page.classList.remove('nav-hidden');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   }
   if (btn) {
