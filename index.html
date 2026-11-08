@@ -12,6 +12,45 @@
 body{margin:0;background:#F6F2EC}
 a{color:#2F4038}a:hover{color:#1F2C26}
 h1,h2,h3{font-family:'Outfit',system-ui,sans-serif}
+img{max-width:100%}
+/* Phones */
+@media (max-width: 640px){
+  body{font-size:16px}
+  nav[aria-label="Main"] a:not(:last-child){display:none !important}
+  header{flex-wrap:nowrap !important;padding:14px 20px !important}
+  header img{height:28px !important}
+  nav[aria-label="Main"] a:last-child{margin-left:0 !important;padding:11px 16px !important;font-size:14px !important;white-space:nowrap}
+  [style="display: flex; flex-direction: column; gap: 16px;"]{flex-direction:row !important;align-items:flex-start;gap:16px !important}
+  [style="display: flex; flex-direction: column; gap: 16px;"] > div:first-child{flex:0 0 96px;height:96px !important;padding:8px !important;border-radius:16px !important;font-size:11px !important}
+  [style="display: flex; flex-direction: column; gap: 16px;"] > div:first-child strong{font-size:12px !important}
+  [style="display: flex; flex-direction: column; gap: 16px;"] > div:first-child span{display:none}
+  [style="display: flex; flex-direction: column; gap: 16px;"] h3{font-size:18px !important;margin-bottom:4px !important}
+  [style="display: flex; flex-direction: column; gap: 16px;"] p{font-size:15px !important}
+  article > span[style*="width: 56px"]{width:44px !important;height:44px !important}
+  h1[style*="font-size: 64px"]{font-size:38px !important;line-height:1.1 !important}
+  h2[style*="font-size: 44px"]{font-size:30px !important}
+  h2[style*="font-size: 32px"],h2[style*="font-size: 26px"]{font-size:24px !important}
+  h3[style*="font-size: 36px"]{font-size:26px !important}
+  h3[style*="font-size: 22px"]{font-size:20px !important}
+  p[style*="font-size: 19px"],p[style*="font-size: 20px"]{font-size:17px !important}
+  #top{padding-top:16px !important;padding-bottom:56px !important;gap:32px !important}
+  [style*="padding: 104px 24px"],[style*="padding: 96px 24px"]{padding-top:64px !important;padding-bottom:64px !important}
+  [style*="padding: 56px 24px 56px"]{padding-top:40px !important;padding-bottom:40px !important}
+  [style*="padding: 0 24px 104px"]{padding-bottom:64px !important}
+  [style*="margin-bottom: 48px"],[style*="margin-bottom: 40px"]{margin-bottom:28px !important}
+  [style*="border-radius: 28px; padding: 32px"]{padding:24px !important}
+  [style*="padding: 56px; box-sizing"]{padding:28px 24px !important}
+  [style*="padding: 64px 56px"]{padding:36px 24px !important}
+  [style*="padding: 36px 40px"]{padding:24px !important}
+  [style*="height: 540px"]{height:280px !important}
+  [style*="height: 520px"]{height:360px !important}
+  [style*="height: 460px"]{height:240px !important}
+  [style*="height: 220px"]{height:180px !important}
+  [style*="min-height: 220px"]{min-height:150px !important}
+  [style*="min-height: 380px"]{min-height:220px !important}
+  [style*="margin: 20px; border-radius: 28px"]{margin:0 16px 16px !important}
+  [aria-label="Qualifications"] > div{justify-content:flex-start !important;gap:10px 24px !important}
+}
 </style>
 
 <style></style>
