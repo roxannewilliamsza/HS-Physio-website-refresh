@@ -44,9 +44,17 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 }
 /* Phones */
 @media (max-width: 640px){
-  #top{padding-top:0 !important;gap:28px !important}
-  .hero-photo{order:-1;flex:0 0 auto !important;width:calc(100% + 48px);margin:0 -24px;height:300px !important;border-radius:0 !important;border-left:0 !important;border-right:0 !important;border-top:0 !important}
-  .interest-photo{height:170px !important}
+  #top{display:grid !important;grid-template-columns:minmax(0,1fr);grid-template-rows:1fr auto;padding-top:0 !important;gap:0 !important}
+  #top .hero-text{display:contents !important}
+  .hero-photo{grid-row:1 / span 2;grid-column:1;width:calc(100% + 48px);margin:0 -24px;height:420px !important;border-radius:0 !important;border:0 !important;justify-content:flex-start !important;padding-top:40px !important;position:relative}
+  .hero-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(31,44,38,0) 30%,rgba(31,44,38,.78) 100%);pointer-events:none}
+  #top h1{grid-row:1;grid-column:1;align-self:end;position:relative;z-index:1;color:#FFFFFF;margin:0 0 12px !important}
+  #top .hero-stars{grid-row:2;grid-column:1;position:relative;z-index:1;color:#FFFFFF !important;margin:0 0 26px !important}
+  #top .hero-text > p{margin-top:24px !important}
+  #hero-cta{margin-top:20px}
+  #top .hero-text > a[href="#contact"]{margin-top:18px}
+  #top{padding-bottom:48px !important}
+  section#top{row-gap:0 !important;column-gap:0 !important}
   .photo-band{height:280px !important}
   .about-portrait{height:400px !important}
   .about-candid{width:140px !important;height:140px !important;right:12px !important}
@@ -129,9 +137,9 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 
   <!-- Hero -->
   <section id="top" style="max-width: 1200px; margin: 0 auto; padding: 48px 24px 88px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px;">
-    <div style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+    <div class="hero-text" style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
       <h1 style="margin: 0; font-size: 64px; line-height: 1.04; font-weight: 500; letter-spacing: -0.015em;">Hands-on physiotherapy for body and mind.</h1>
-      <a href="#reviews" style="align-self: flex-start; margin-top: -6px; display: inline-flex; align-items: center; gap: 10px; color: #2F4038; text-decoration: none; font-size: 15px;"><span role="img" aria-label="5 out of 5 stars" style="color: #C98B6B; font-size: 18px; letter-spacing: 2px; line-height: 1;">★★★★★</span><span style="white-space: nowrap;">5-star reviews on Google</span></a>
+      <a href="#reviews" class="hero-stars" style="align-self: flex-start; margin-top: -6px; display: inline-flex; align-items: center; gap: 10px; color: #2F4038; text-decoration: none; font-size: 15px;"><span role="img" aria-label="5 out of 5 stars" style="color: #C98B6B; font-size: 18px; letter-spacing: 2px; line-height: 1;">★★★★★</span><span style="white-space: nowrap;">5-star reviews on Google</span></a>
       <p style="margin: 0; font-size: 19px; color: #4A5650; max-width: 34em;">Treating sports and running injuries, hand and shoulder problems, and the tension stress leaves behind — so you can feel at home in your body again.</p>
       <div id="hero-cta" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-top: 8px;">
         <a href="#book" style="background: #2F4038; color: #FFFFFF; text-decoration: none; padding: 17px 30px; border-radius: 999px; font-weight: 500;">Book an appointment</a>
@@ -176,33 +184,25 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
     </div>
 
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-      <article class="interest" style="background: #FFFFFF; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column;">
-        <div class="interest-photo" style="height: 200px; background: #DCE3DC; border-bottom: 2px dashed #8FA597; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; box-sizing: border-box; text-align: center; color: #3A4740; padding: 16px; font-size: 14px;"><strong style="font-size: 16px; font-weight: 600;">PHOTO 11</strong><span>Hand or wrist treatment, close-up</span></div>
-        <div style="padding: 24px 28px 28px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="margin: 0; font-size: 22px; font-weight: 500;">Hand &amp; upper limb</h3>
-          <p style="margin: 0; font-size: 16px; color: #4A5650;">Hand, wrist, elbow and shoulder injuries, post-surgery rehab and repetitive strain — backed by four years in a specialist hand and upper-limb unit.</p>
-        </div>
+      <article style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+        <span style="width: 56px; height: 56px; border-radius: 50%; background: #E4EBE5; display: flex; align-items: center; justify-content: center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 11V5a1.5 1.5 0 0 1 3 0v5"></path><path d="M10 10V4a1.5 1.5 0 0 1 3 0v6"></path><path d="M13 10V5a1.5 1.5 0 0 1 3 0v6"></path><path d="M16 11V8a1.5 1.5 0 0 1 3 0v6a7 7 0 0 1-7 7h-1a6 6 0 0 1-5-2.7L3.5 14a1.5 1.5 0 0 1 2.5-1.7L7 14"></path></svg></span>
+        <h3 style="margin: 0; font-size: 22px; font-weight: 500;">Hand &amp; upper limb</h3>
+        <p style="margin: 0; font-size: 16px; color: #4A5650;">Hand, wrist, elbow and shoulder injuries, post-surgery rehab and repetitive strain — backed by four years in a specialist hand and upper-limb unit.</p>
       </article>
-      <article class="interest" style="background: #FFFFFF; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column;">
-        <div class="interest-photo" style="height: 200px; background: #DCE3DC; border-bottom: 2px dashed #8FA597; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; box-sizing: border-box; text-align: center; color: #3A4740; padding: 16px; font-size: 14px;"><strong style="font-size: 16px; font-weight: 600;">PHOTO 12</strong><span>Running or leg rehab, e.g. knee or calf</span></div>
-        <div style="padding: 24px 28px 28px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="margin: 0; font-size: 22px; font-weight: 500;">Sports, running &amp; dance</h3>
-          <p style="margin: 0; font-size: 16px; color: #4A5650;">Back to training safely after injury, with a plan to keep you there — from a physio who runs and dances too.</p>
-        </div>
+      <article style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+        <span style="width: 56px; height: 56px; border-radius: 50%; background: #E4EBE5; display: flex; align-items: center; justify-content: center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="14" cy="4" r="2"></circle><path d="M6 21l3-6 3 2 1-5 3 3h3"></path><path d="M8 10l3-2 3 1"></path></svg></span>
+        <h3 style="margin: 0; font-size: 22px; font-weight: 500;">Sports, running &amp; dance</h3>
+        <p style="margin: 0; font-size: 16px; color: #4A5650;">Back to training safely after injury, with a plan to keep you there — from a physio who runs and dances too.</p>
       </article>
-      <article class="interest" style="background: #FFFFFF; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column;">
-        <div class="interest-photo" style="height: 200px; background: #DCE3DC; border-bottom: 2px dashed #8FA597; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; box-sizing: border-box; text-align: center; color: #3A4740; padding: 16px; font-size: 14px;"><strong style="font-size: 16px; font-weight: 600;">PHOTO 13</strong><span>Pilates-based exercise in motion</span></div>
-        <div style="padding: 24px 28px 28px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="margin: 0; font-size: 22px; font-weight: 500;">Pilates-based rehab</h3>
-          <p style="margin: 0; font-size: 16px; color: #4A5650;">Low-impact strength, posture and core work that helps you recover — and stops the same injury coming back.</p>
-        </div>
+      <article style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+        <span style="width: 56px; height: 56px; border-radius: 50%; background: #E4EBE5; display: flex; align-items: center; justify-content: center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="5" r="2"></circle><path d="M4 20h16"></path><path d="M7 20l2-7h6l2 7"></path><path d="M9 13l-3-3M15 13l3-3"></path></svg></span>
+        <h3 style="margin: 0; font-size: 22px; font-weight: 500;">Pilates-based rehab</h3>
+        <p style="margin: 0; font-size: 16px; color: #4A5650;">Low-impact strength, posture and core work that helps you recover — and stops the same injury coming back.</p>
       </article>
-      <article class="interest" style="background: #FFFFFF; border-radius: 28px; overflow: hidden; display: flex; flex-direction: column;">
-        <div class="interest-photo" style="height: 200px; background: #DCE3DC; border-bottom: 2px dashed #8FA597; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; box-sizing: border-box; text-align: center; color: #3A4740; padding: 16px; font-size: 14px;"><strong style="font-size: 16px; font-weight: 600;">PHOTO 14</strong><span>Gentle balance or guided movement</span></div>
-        <div style="padding: 24px 28px 28px; display: flex; flex-direction: column; gap: 10px;">
-          <h3 style="margin: 0; font-size: 22px; font-weight: 500;">Neuro &amp; long-term conditions</h3>
-          <p style="margin: 0; font-size: 16px; color: #4A5650;">Better movement, balance and independence for people with neurological conditions, older adults and those with complex needs.</p>
-        </div>
+      <article style="background: #FFFFFF; border-radius: 28px; padding: 32px; display: flex; flex-direction: column; gap: 14px;">
+        <span style="width: 56px; height: 56px; border-radius: 50%; background: #E4EBE5; display: flex; align-items: center; justify-content: center;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"></path><path d="M8 7c-2 0-4 1.5-4 4s2 4 4 4"></path><path d="M16 7c2 0 4 1.5 4 4s-2 4-4 4"></path><path d="M8 11h8"></path></svg></span>
+        <h3 style="margin: 0; font-size: 22px; font-weight: 500;">Neuro &amp; long-term conditions</h3>
+        <p style="margin: 0; font-size: 16px; color: #4A5650;">Better movement, balance and independence for people with neurological conditions, older adults and those with complex needs.</p>
       </article>
     </div>
 
