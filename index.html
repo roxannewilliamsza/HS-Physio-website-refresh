@@ -13,13 +13,34 @@ body{margin:0;background:#F6F2EC}
 a{color:#2F4038}a:hover{color:#1F2C26}
 h1,h2,h3{font-family:'Outfit',system-ui,sans-serif}
 img{max-width:100%}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+/* Sticky header: Book button appears once the hero's buttons scroll away */
+.site-header{transition:box-shadow .2s ease}
+.site-header.is-scrolled{box-shadow:0 1px 0 #E3DCD2,0 6px 18px rgba(47,64,56,.06)}
+.header-book{opacity:0;visibility:hidden;transform:translateY(-4px);transition:opacity .25s ease,transform .25s ease,visibility .25s}
+.site-header.is-scrolled .header-book{opacity:1;visibility:visible;transform:none}
+.menu-btn{display:none}
+.mobile-menu{display:none}
+/* Ticker */
+@keyframes hs-ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.ticker-track{animation:hs-ticker 38s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+@media (prefers-reduced-motion: reduce){
+  .ticker-track{animation:none}
+  html{scroll-behavior:auto}
+}
+/* Tablets and phones: menu button instead of links */
+@media (max-width: 900px){
+  .desk-nav{display:none !important}
+  .menu-btn{display:flex !important}
+  .site-header.menu-open .mobile-menu{display:flex !important}
+}
 /* Phones */
 @media (max-width: 640px){
   body{font-size:16px}
-  nav[aria-label="Main"] a:not(:last-child){display:none !important}
-  header{flex-wrap:nowrap !important;padding:14px 20px !important}
-  header img{height:28px !important}
-  nav[aria-label="Main"] a:last-child{margin-left:0 !important;padding:11px 16px !important;font-size:14px !important;white-space:nowrap}
+  .site-header > div{padding:12px 20px !important}
+  .site-header img{height:28px !important}
+  .header-book{padding:10px 14px !important;font-size:14px !important}
   [style="display: flex; flex-direction: column; gap: 16px;"]{flex-direction:row !important;align-items:flex-start;gap:16px !important}
   [style="display: flex; flex-direction: column; gap: 16px;"] > div:first-child{flex:0 0 96px;height:96px !important;padding:8px !important;border-radius:16px !important;font-size:11px !important}
   [style="display: flex; flex-direction: column; gap: 16px;"] > div:first-child strong{font-size:12px !important}
@@ -49,7 +70,6 @@ img{max-width:100%}
   [style*="min-height: 220px"]{min-height:150px !important}
   [style*="min-height: 380px"]{min-height:220px !important}
   [style*="margin: 20px; border-radius: 28px"]{margin:0 16px 16px !important}
-  [aria-label="Qualifications"] > div{justify-content:flex-start !important;gap:10px 24px !important}
 }
 </style>
 
@@ -63,15 +83,32 @@ img{max-width:100%}
   <!-- Notice bar: only shown when there is something to announce (e.g. leave) -->
   
 
-  <!-- Nav -->
-  <header style="max-width: 1200px; margin: 0 auto; padding: 20px 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px;">
-    <a href="#top" aria-label="HS Physio home" style="display: flex; align-items: center; padding: 8px 0;"><img src="assets/hs-logo.svg" alt="HS Physio" style="height: 34px; width: auto; display: block;"></a>
-    <nav aria-label="Main" style="display: flex; flex-wrap: wrap; align-items: center; gap: 4px;">
-      <a href="#services" style="color: #2F4038; text-decoration: none; padding: 12px 14px; font-size: 15px; font-weight: 500;">Services</a>
-      <a href="#first-visit" style="color: #2F4038; text-decoration: none; padding: 12px 14px; font-size: 15px; font-weight: 500;">Your first visit</a>
-      <a href="#about" style="color: #2F4038; text-decoration: none; padding: 12px 14px; font-size: 15px; font-weight: 500;">About</a>
-      <a href="#contact" style="color: #2F4038; text-decoration: none; padding: 12px 14px; font-size: 15px; font-weight: 500;">Contact</a>
-      <a href="#book" style="margin-left: 8px; background: #2F4038; color: #FFFFFF; text-decoration: none; padding: 12px 22px; border-radius: 999px; font-size: 15px; font-weight: 500;">Book an appointment</a>
+  <!-- Sticky header -->
+  <header class="site-header" style="position: sticky; top: 0; z-index: 50; background: #F6F2EC;">
+    <div style="max-width: 1200px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px;">
+      <a href="#top" aria-label="HS Physio home" style="display: flex; align-items: center; padding: 6px 0;"><img src="assets/hs-logo.svg" alt="HS Physio" style="height: 34px; width: auto; display: block;"></a>
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <nav aria-label="Main" class="desk-nav" style="display: flex; align-items: center; gap: 4px;">
+          <a href="#services" style="color: #2F4038; text-decoration: none; padding: 12px 14px; font-size: 15px; font-weight: 500;">Services</a>
+          <a href="#first-visit" style="color: #2F4038; text-decoration: none; padding: 12px 14px; font-size: 15px; font-weight: 500;">Your first visit</a>
+          <a href="#about" style="color: #2F4038; text-decoration: none; padding: 12px 14px; font-size: 15px; font-weight: 500;">About</a>
+          <a href="#contact" style="color: #2F4038; text-decoration: none; padding: 12px 14px; font-size: 15px; font-weight: 500;">Contact</a>
+        </nav>
+        <a href="#book" class="header-book" style="background: #2F4038; color: #FFFFFF; text-decoration: none; padding: 12px 22px; border-radius: 999px; font-size: 15px; font-weight: 500; white-space: nowrap;">Book an appointment</a>
+        <button type="button" class="menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu" style="width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid #2F4038; background: transparent; color: #2F4038; align-items: center; justify-content: center; cursor: pointer; padding: 0;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2F4038" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"></path></svg>
+        </button>
+      </div>
+    </div>
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Menu" style="flex-direction: column; gap: 4px; padding: 8px 20px 24px; border-top: 1px solid #E3DCD2; background: #F6F2EC;">
+      <a href="#services" style="color: #2F4038; text-decoration: none; padding: 14px 4px; font-size: 18px; font-weight: 500; border-bottom: 1px solid #E3DCD2;">Services</a>
+      <a href="#first-visit" style="color: #2F4038; text-decoration: none; padding: 14px 4px; font-size: 18px; font-weight: 500; border-bottom: 1px solid #E3DCD2;">Your first visit</a>
+      <a href="#about" style="color: #2F4038; text-decoration: none; padding: 14px 4px; font-size: 18px; font-weight: 500; border-bottom: 1px solid #E3DCD2;">About</a>
+      <a href="#contact" style="color: #2F4038; text-decoration: none; padding: 14px 4px; font-size: 18px; font-weight: 500;">Contact</a>
+      <div style="display: flex; gap: 10px; padding-top: 12px;">
+        <a href="#book" style="flex: 1 1 0; text-align: center; background: #2F4038; color: #FFFFFF; text-decoration: none; padding: 14px 16px; border-radius: 999px; font-weight: 500;">Book</a>
+        <a href="https://wa.me/27732033726" style="flex: 1 1 0; text-align: center; border: 2px solid #2F4038; color: #2F4038; text-decoration: none; padding: 12px 16px; border-radius: 999px; font-weight: 500;">WhatsApp</a>
+      </div>
     </nav>
   </header>
 
@@ -81,15 +118,10 @@ img{max-width:100%}
       <p style="margin: 0; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #4C6656; font-weight: 600;">Hayley Schuter · Gardens, Cape Town</p>
       <h1 style="margin: 0; font-size: 64px; line-height: 1.04; font-weight: 500; letter-spacing: -0.015em;">Hands-on physiotherapy for body and mind.</h1>
       <p style="margin: 0; font-size: 19px; color: #4A5650; max-width: 34em;">Treating sports and running injuries, hand and shoulder problems, and the tension stress leaves behind — so you can feel at home in your body again.</p>
-      <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-top: 8px;">
+      <div id="hero-cta" style="display: flex; flex-wrap: wrap; align-items: center; gap: 12px; padding-top: 8px;">
         <a href="#book" style="background: #2F4038; color: #FFFFFF; text-decoration: none; padding: 17px 30px; border-radius: 999px; font-weight: 500;">Book an appointment</a>
         <a href="tel:+27732033726" style="border: 2px solid #2F4038; color: #2F4038; text-decoration: none; padding: 15px 26px; border-radius: 999px; font-weight: 500;">Call 073 203 3726</a>
       </div>
-      <p style="margin: 0; font-size: 15px; color: #4A5650; display: flex; flex-wrap: wrap; gap: 6px 20px;">
-        <span style="display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>No referral needed</span>
-        <span style="display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>5-star Google reviews</span>
-        <span style="display: flex; align-items: center; gap: 8px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Claimable from medical aid</span>
-      </p>
     </div>
     <div style="flex: 1 1 440px; min-width: 0; height: 540px; border-radius: 40px; background: #DCE3DC; border: 2px dashed #8FA597; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; padding: 24px; box-sizing: border-box; text-align: center; color: #3A4740; font-size: 15px;">
       <strong style="font-size: 18px; font-weight: 600;">PHOTO 1 · Hero</strong>
@@ -97,14 +129,29 @@ img{max-width:100%}
     </div>
   </section>
 
-  <!-- Trust strip -->
-  <section aria-label="Qualifications" style="background: #FFFFFF;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 26px 24px; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px 40px; font-size: 15px; color: #4A5650;">
-      <span style="display: flex; align-items: center; gap: 10px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5E7A68;"></span>Practising since <strong style="font-weight: 600; color: #2F4038;">2008</strong></span>
-      <span style="display: flex; align-items: center; gap: 10px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5E7A68;"></span>HPCSA registered</span>
-      <span style="display: flex; align-items: center; gap: 10px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5E7A68;"></span>OMPTG member</span>
-      <span style="display: flex; align-items: center; gap: 10px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5E7A68;"></span>Practice no. 0720000711691</span>
-      <span style="display: flex; align-items: center; gap: 10px;"><span style="width: 8px; height: 8px; border-radius: 50%; background: #5E7A68;"></span>Certified Pilates instructor</span>
+  <!-- Ticker: reassurances + credentials -->
+  <section class="ticker" aria-label="Why patients choose HS Physio" style="background: #FFFFFF; overflow: hidden;">
+    <div class="ticker-track" style="display: flex; width: max-content;">
+      <ul style="display: flex; margin: 0; padding: 20px 0; list-style: none; font-size: 15px; color: #2F4038; white-space: nowrap;">
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>No referral needed</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>5-star Google reviews</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Claimable from medical aid</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Practising since 2008</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>HPCSA registered</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>OMPTG member</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Certified Pilates instructor</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Free parking at the MediSpa</li>
+      </ul>
+      <ul aria-hidden="true" style="display: flex; margin: 0; padding: 20px 0; list-style: none; font-size: 15px; color: #2F4038; white-space: nowrap;">
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>No referral needed</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>5-star Google reviews</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Claimable from medical aid</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Practising since 2008</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>HPCSA registered</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>OMPTG member</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Certified Pilates instructor</li>
+        <li style="display: flex; align-items: center; gap: 10px; padding: 0 28px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4C6656" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12l5 5 9-10"></path></svg>Free parking at the MediSpa</li>
+      </ul>
     </div>
   </section>
 
@@ -401,6 +448,29 @@ img{max-width:100%}
   </footer>
 
 </div>
+
+<script>
+(function(){
+  var header = document.querySelector('.site-header');
+  var cta = document.getElementById('hero-cta');
+  var btn = document.querySelector('.menu-btn');
+  if (header && cta && 'IntersectionObserver' in window) {
+    new IntersectionObserver(function(entries){
+      var e = entries[0];
+      header.classList.toggle('is-scrolled', !e.isIntersecting && e.boundingClientRect.top < 0);
+    }, { rootMargin: '-70px 0px 0px 0px' }).observe(cta);
+  }
+  function setMenu(open){
+    header.classList.toggle('menu-open', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  }
+  if (btn) {
+    btn.addEventListener('click', function(){ setMenu(!header.classList.contains('menu-open')); });
+    document.querySelectorAll('#mobile-menu a').forEach(function(a){ a.addEventListener('click', function(){ setMenu(false); }); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape') setMenu(false); });
+  }
+})();
+</script>
 
 </body>
 </html>
