@@ -26,6 +26,8 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 @keyframes hs-ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .ticker-track{animation:hs-ticker 38s linear infinite}
 .ticker:hover .ticker-track{animation-play-state:paused}
+.ticker-track ul{min-width:100vw;justify-content:space-around}
+.ticker{-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
 /* Tablets and phones: menu button, header hides on scroll down, Book bar at the bottom */
 @media (max-width: 900px){
   .desk-nav{display:none !important}
@@ -38,7 +40,10 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
   .page{padding-bottom:84px}
 }
 @media (prefers-reduced-motion: reduce){
-  .ticker-track{animation:none}
+  .ticker-track{animation:none;width:100% !important;justify-content:center}
+  .ticker-track ul{min-width:0;flex-wrap:wrap;justify-content:center;padding:14px 12px !important}
+  .ticker-track ul[aria-hidden="true"]{display:none !important}
+  .ticker{-webkit-mask-image:none;mask-image:none}
   html{scroll-behavior:auto}
   .site-header,.book-bar{transition:none !important}
 }
