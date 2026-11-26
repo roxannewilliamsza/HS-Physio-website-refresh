@@ -117,6 +117,18 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
   #top .hero-photo{display:none}
 }
 /* Below 1360px (laptops/tablets/phones) the existing hero.jpg layout is unchanged. */
+/* Hero depth effect: as you scroll, the photo eases in a few percent (like a slow dolly-in). Starts exactly as the current crop; off for reduced-motion. */
+@media (prefers-reduced-motion: no-preference){
+  .hero-photo{position:relative;overflow:hidden;isolation:isolate;background-image:none !important}
+  .hero-photo::before{content:"";position:absolute;z-index:-1;inset:0;background:url('photos/hero.jpg') center 58%/cover no-repeat;transform:scale(calc(1 + var(--pz,0) * .08));transform-origin:55% 70%;will-change:transform}
+}
+@media (max-width: 640px) and (prefers-reduced-motion: no-preference){
+  .hero-photo::before{background-position:center 62%;transform-origin:50% 65%}
+}
+@media (min-width: 1360px) and (prefers-reduced-motion: no-preference){
+  #top{overflow-y:clip}
+  #top::before{transform:scale(calc(1 + var(--pz,0) * .07));transform-origin:72% 85%;will-change:transform}
+}
 </style>
 <style></style>
 </head>
@@ -477,6 +489,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
     ticking = false;
     var y = window.scrollY;
     page.classList.toggle('past-top', y > 8);
+    document.documentElement.style.setProperty('--pz', Math.min(y / 650, 1).toFixed(3));
     page.classList.toggle('is-scrolled', cta ? cta.getBoundingClientRect().bottom < 70 : y > 520);
     var menuOpen = page.classList.contains('menu-open');
     if (y < 80 || menuOpen) page.classList.remove('nav-hidden');
