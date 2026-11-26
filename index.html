@@ -129,10 +129,12 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
   #top{overflow-y:clip}
   #top::before{transform:translate3d(0,calc(var(--pz,0) * 64px),0) scale(calc(1 + var(--pz,0) * .20));transform-origin:72% 85%;will-change:transform}
 }
-/* Phone hero: the photo fades softly into the page colour instead of ending on a hard edge. */
+/* Phone hero: the photo is extended downward (soft out-of-focus continuation) and fades into the page colour, so there is no hard edge above the headline. */
 @media (max-width: 640px){
-  .hero-photo{position:relative}
-  .hero-photo::after{content:"";position:absolute;z-index:0;left:0;right:0;bottom:-1px;height:72px;background:linear-gradient(to bottom,rgba(246,242,236,0) 0%,rgba(246,242,236,.35) 35%,rgba(246,242,236,.8) 72%,#F6F2EC 100%);pointer-events:none}
+  .hero-photo{--h0:calc(clamp(250px, 42svh, 330px) + var(--hh,68px));position:relative;overflow:hidden;isolation:isolate;background-image:none !important;height:calc(var(--h0) + 64px) !important;margin-bottom:-26px !important}
+  .hero-photo::before{content:"";position:absolute;z-index:-1;inset:0;background:url('photos/hero-phone.jpg') center calc(-0.62 * (max(100vw, var(--h0)) - var(--h0))) / max(100%, var(--h0)) auto no-repeat}
+  .hero-photo::after{content:"";position:absolute;z-index:0;left:0;right:0;bottom:-1px;height:118px;background:linear-gradient(to bottom,rgba(246,242,236,0) 0%,rgba(246,242,236,.32) 30%,rgba(246,242,236,.7) 58%,rgba(246,242,236,.92) 82%,#F6F2EC 100%);pointer-events:none}
+  #top .hero-eyebrow{position:relative;z-index:1}
 }
 </style>
 <style></style>
