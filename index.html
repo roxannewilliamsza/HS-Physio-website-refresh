@@ -52,13 +52,14 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 }
 /* Phones */
 @media (max-width: 640px){
-  #top{display:grid !important;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto;padding-top:0 !important;gap:0 !important}
+  #top{display:grid !important;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto;padding-top:0 !important;gap:0 !important}
   #top .hero-text{display:contents !important}
   .hero-photo{grid-row:1;grid-column:1;width:calc(100% + 48px);margin:0 -24px;height:clamp(250px, 42svh, 330px) !important;background-position:center 62% !important;border-radius:0 !important;border:0 !important;justify-content:flex-start !important;padding-top:24px !important;position:relative}
   .hero-photo > span{display:none}
-  #top h1{grid-row:2;grid-column:1;position:relative;z-index:1;color:#2F4038;margin:20px 0 8px !important;font-size:44px !important;line-height:1.04 !important}
-  #top .hero-stars{grid-row:3;grid-column:1;position:relative;z-index:1;color:#4A5650 !important;margin:0 0 4px !important}
-  #top .hero-text > p{order:5;margin-top:20px !important;font-size:16px !important;line-height:1.55 !important}
+  #top .hero-eyebrow{grid-row:2;grid-column:1;margin:22px 0 10px !important}
+  #top h1{grid-row:3;grid-column:1;position:relative;z-index:1;color:#2F4038;margin:0 0 8px !important;font-size:44px !important;line-height:1.04 !important}
+  #top .hero-stars{grid-row:4;grid-column:1;position:relative;z-index:1;color:#4A5650 !important;margin:0 0 4px !important}
+  #top .hero-text > p:not(.hero-eyebrow){order:5;margin-top:20px !important;font-size:16px !important;line-height:1.55 !important}
   #hero-cta{order:4;margin-top:16px;padding-top:0 !important;gap:10px !important}
   #hero-cta a{padding-top:14px !important;padding-bottom:14px !important}
   #top .hero-text > a[href="#contact"]{margin-top:18px}
@@ -150,6 +151,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 <!-- Hero -->
 <section id="top" style="max-width: 1200px; margin: 0 auto; padding: 48px 24px 88px; display: flex; flex-wrap: wrap; align-items: center; gap: 56px;">
 <div class="hero-text" style="flex: 1 1 440px; min-width: 0; display: flex; flex-direction: column; gap: 24px;">
+<p class="hero-eyebrow" style="margin: 0 0 -10px; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; font-weight: 500; color: #4C6656; line-height: 1.3;">Hands-on physiotherapy</p>
 <h1 style="margin: 0; font-size: 64px; line-height: 1.04; font-weight: 500; letter-spacing: -0.015em;">Strong body.<br/>Calm mind.</h1>
 <a class="hero-stars" href="#reviews" style="align-self: flex-start; margin-top: -6px; display: inline-flex; align-items: center; gap: 10px; color: #2F4038; text-decoration: none; font-size: 15px;"><span aria-label="5 out of 5 stars" role="img" style="color: #F2A33A; font-size: 18px; letter-spacing: 2px; line-height: 1;">★★★★★</span><span style="white-space: nowrap;">5-star reviews on Google</span></a>
 <p style="margin: 0; font-size: 19px; color: #4A5650; max-width: 34em;">Hands-on physiotherapy in Gardens for pain and restrictions from sport or your body’s daily demands, hand and shoulder problems, and the tension stress leaves behind.</p>
