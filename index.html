@@ -104,6 +104,16 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
   [style*="min-height: 380px"]{min-height:220px !important}
   [style*="margin: 20px; border-radius: 28px"]{margin:0 16px 16px !important}
 }
+
+/* ---- Desktop wide hero (paste just before the closing </style> in index.html) ---- */
+.page{overflow-x:clip}
+@media (min-width: 1360px){
+  #top{position:relative;max-width:1200px;box-sizing:border-box;min-height:clamp(560px,41vw,720px);padding-top:56px;padding-bottom:56px}
+  #top::before{content:"";position:absolute;z-index:0;top:0;bottom:0;left:calc(50% - 50vw);right:calc(50% - 50vw);background:#D3C5B9 url('photos/hero-wide.jpg') right bottom/cover no-repeat}
+  #top .hero-text{position:relative;z-index:1;flex:0 1 480px !important}
+  #top .hero-photo{display:none}
+}
+/* Below 1360px (laptops/tablets/phones) the existing hero.jpg layout is unchanged. */
 </style>
 <style></style>
 </head>
