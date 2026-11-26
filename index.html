@@ -127,7 +127,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
 }
 @media (min-width: 1360px) and (prefers-reduced-motion: no-preference){
   #top{overflow-y:clip}
-  #top::before{transform:translate3d(0,calc(var(--pz,0) * 50px),0) scale(calc(1 + var(--pz,0) * .15));transform-origin:72% 85%;will-change:transform}
+  #top::before{transform:translate3d(0,calc(var(--pz,0) * 64px),0) scale(calc(1 + var(--pz,0) * .20));transform-origin:72% 85%;will-change:transform}
 }
 </style>
 <style></style>
@@ -489,7 +489,7 @@ html{scroll-behavior:smooth;scroll-padding-top:80px}
     ticking = false;
     var y = window.scrollY;
     page.classList.toggle('past-top', y > 8);
-    document.documentElement.style.setProperty('--pz', Math.min(y / 520, 1).toFixed(3));
+    document.documentElement.style.setProperty('--pz', Math.min(y / (window.innerWidth >= 1360 ? 340 : 520), 1).toFixed(3));
     page.classList.toggle('is-scrolled', cta ? cta.getBoundingClientRect().bottom < 70 : y > 520);
     var menuOpen = page.classList.contains('menu-open');
     if (y < 80 || menuOpen) page.classList.remove('nav-hidden');
